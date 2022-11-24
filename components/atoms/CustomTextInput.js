@@ -1,10 +1,11 @@
 import { TextInput, StyleSheet } from "react-native"
+import { forwardRef } from "react";
 
-const CustomTextInput = () => {
+const CustomTextInput = forwardRef(({...rest},ref) => {
   return (
-    <TextInput style={styles.input} placeholder="Type Here "/>
+    <TextInput ref={ref} style={styles.input} placeholder="Type Here " {...rest}/>
   )
-}
+})
 
 const styles = StyleSheet.create({
   input: {

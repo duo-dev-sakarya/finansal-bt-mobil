@@ -1,9 +1,9 @@
 import React from 'react'
-import { Text } from 'react-native'
+import ListAddUpdateForm from '../../components/organisms/ListAddUpdateForm'
 
-const ListAddScreen = () => {
+const ListAddScreen = ({ navigation }) => {
   return (
-    <Text>ListAddScreen</Text>
+    <ListAddUpdateForm navigation={navigation}/>
   )
 }
 
