@@ -1,7 +1,8 @@
 import { Text } from 'react-native'
+import ListContentAddUpdateForm from '../../components/organisms/ListContentAddUpdateForm'
 const ListContentAddScreen = () => {
   return (
-    <Text>ListContentAddScreen</Text>
+    <ListContentAddUpdateForm/>
   )
 }
 

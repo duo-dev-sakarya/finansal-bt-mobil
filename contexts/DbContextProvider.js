@@ -10,9 +10,19 @@ const DbContextProvider = ({ children }) => {
   const [lastTransaction, setLastTransaction] = useState(new Date())
 
   useEffect(()=>{
-    db.transaction(tx => {
-      tx.executeSql(
+    db.transaction(async tx => {
+      await tx.executeSql(
         'CREATE TABLE IF NOT EXISTS lists (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, created_at INT, updated_at INT, is_active INT)'
+      )
+      await tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS list_contents (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          name TEXT, created_at INT, 
+          updated_at INT, 
+          is_active INT,
+          list_id INTEGER, 
+          FOREIGN KEY (list_id) REFERENCES lists(id)
+          )`
       )
     })
   },[])
