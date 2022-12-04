@@ -6,10 +6,14 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import { Button } from 'react-native';
 import axios from 'axios'
+import CustomButton from '../atoms/CustomButton'
+import { UserContext } from "../../contexts/UserContextProvider"
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Login() {
+
+  const userContext = React.useContext(UserContext);
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
     {
@@ -22,10 +26,11 @@ export default function Login() {
       if (response?.type === 'success') {
         const { id_token } = response.params;
         const auth = getAuth();
-        console.log(response.params.id_token)
+        console.log(response)
         const credential = GoogleAuthProvider.credential(id_token);
         singInFirebaseWithCredentials(auth, credential)
-
+        
+        
         requestExample()
       }
     }catch(err){
@@ -35,13 +40,15 @@ export default function Login() {
   }, [response]);
 
   const singInFirebaseWithCredentials = async(auth, credential) => {
-    console.log(await signInWithCredential(auth, credential));
+    const res = await signInWithCredential(auth, credential)
+    console.log(res.user);
+    userContext.setToken(res.user.accessToken)
+    userContext.setUserData(res.user)
   }
 
   const requestExample = async() => {
     try{
       const res = await axios.get(`https://oauth2.googleapis.com/tokeninfo?id_token=${response.params.id_token}`)
-  
       console.log(res)
     }catch (err){
       console.log(err)
@@ -50,9 +57,9 @@ export default function Login() {
   }
 
   return (
-    <Button
+    <CustomButton
       disabled={!request}
-      title="Login"
+      title="LOGIN WITH GOOGLE ACCOUNT"
       onPress={() => {
         promptAsync();
       }}
