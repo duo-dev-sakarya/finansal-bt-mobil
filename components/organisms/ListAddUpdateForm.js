@@ -4,7 +4,7 @@ import CustomTextInput from '../../components/atoms/CustomTextInput'
 import { useForm } from "react-hook-form";
 import { addList } from '../../services/ListService';
 import useListService from '../../services/ListService';
-import { TextInput } from 'react-native';
+import CustomButton from '../atoms/CustomButton';
 
 const ListAddUpdateForm = ({ navigation }) => {
 
@@ -30,7 +30,7 @@ const ListAddUpdateForm = ({ navigation }) => {
         onChangeText={text => setValue('name', text, true)}
         errorMessage={errors.title?.message}
       />}
-      <Button title="Tx" onPress={handleSubmit(submit)} />
+      <CustomButton title="Tx" onPress={handleSubmit(submit)} />
     </SafeAreaView>
   )
 }

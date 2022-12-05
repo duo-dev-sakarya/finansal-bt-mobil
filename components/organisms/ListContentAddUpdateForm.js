@@ -6,6 +6,7 @@ import { addList } from '../../services/ListService';
 import useListContentService from '../../services/ListContentService';
 import { TextInput } from 'react-native';
 import { useRoute,useNavigation } from '@react-navigation/native';
+import CustomButton from '../atoms/CustomButton';
 
 const ListContentAddUpdateForm = () => {
 
@@ -34,7 +35,7 @@ const ListContentAddUpdateForm = () => {
         onChangeText={text => setValue('name', text, true)}
         errorMessage={errors.title?.message}
       />}
-      <Button title="Tx" onPress={handleSubmit(submit)} />
+      <CustomButton title="Tx" onPress={handleSubmit(submit)} />
     </SafeAreaView>
   )
 }
