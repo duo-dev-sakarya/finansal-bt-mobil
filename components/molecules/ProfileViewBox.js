@@ -1,7 +1,8 @@
 import { View, StyleSheet, Text } from 'react-native'
 import { useTheme } from '@react-navigation/native';
 import { Image } from 'react-native';
-const ProfileViewBox = ({ displayName, ppURI,email }) => {
+import SignOutButton from './SignOutButton';
+const ProfileViewBox = ({ displayName, ppURI, email }) => {
   const { colors } = useTheme();
   const styles = makeStyles(colors)
 
@@ -11,10 +12,15 @@ const ProfileViewBox = ({ displayName, ppURI,email }) => {
         <Image source={{ uri: ppURI }}
           style={styles.imageBox}
         />
-        <View style={{ flex: 1, padding:6, alignItems:"center" }}>
-          <Text style={{fontSize:24}}>{displayName}</Text>
-          <Text style={{fontSize:18, marginTop:4}}>{email}</Text>
+        <View style={{ flex: 1, padding: 6, alignItems: "center" }}>
+          <Text style={{ fontSize: 22 }}>{displayName}</Text>
+          <Text style={{ fontSize: 14, marginTop: 4 }}>{email}</Text>
+
         </View>
+        <View style={{ justifyContent: "center" }}>
+          <SignOutButton />
+        </View>
+
       </View>
 
 

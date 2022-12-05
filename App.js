@@ -12,6 +12,9 @@ import AppContextProvider from './contexts/AppContextProvider';
 import UserScreen from './screens/User/UserScreen';
 import 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import LoginScreen from './screens/User/LoginScreen';
+import { UserContext } from './contexts/UserContextProvider';
+import { useContext } from 'react';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -28,14 +31,39 @@ const OfflineListScreens = () => {
   )
 }
 
+const OnlineListScreens = () => {
+  
+  const userContext = useContext(UserContext);
 
-const UserScreens = () => {
   return (
-    <Stack.Navigator initialRouteName="UserScreen">
-      <Stack.Screen name="ListsScreen" component={UserScreen} options={{headerShown: false}}/>
+    <Stack.Navigator initialRouteName="ListsScreen">
+      {userContext.userData
+        ? <>
+          <Stack.Screen name="ListsScreen" component={ListsScreen} />
+          <Stack.Screen name="ListAddScreen" component={ListAddScreen} />
+          <Stack.Screen name="ListContentScreen" component={ListContentScreen} />
+          <Stack.Screen name="ListContentAddScreen" component={ListContentAddScreen} />
+        </>
+        : <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />}
     </Stack.Navigator>
   )
 }
+
+
+const UserScreens = () => {
+
+  const userContext = useContext(UserContext);
+
+  return (
+    <Stack.Navigator >
+      {userContext.userData
+        ? <Stack.Screen name="UserScreen" component={UserScreen} options={{ headerShown: false }} />
+        : <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
+      }
+    </Stack.Navigator>
+  )
+}
+
 export default function App() {
   return (
     <AppContextProvider>
@@ -49,7 +77,7 @@ export default function App() {
                 );
               },
             }} />
-          <Tab.Screen name="Public Lists" component={OfflineListScreens}
+          <Tab.Screen name="Public Lists" component={OnlineListScreens}
             options={{
               tabBarIcon: ({ focused }) => {
                 return (
@@ -57,11 +85,11 @@ export default function App() {
                 );
               },
             }} />
-          <Tab.Screen name="Login" component={UserScreens}
+          <Tab.Screen name="Account" component={UserScreens}
             options={{
               tabBarIcon: ({ focused }) => {
                 return (
-                  <Ionicons name="log-in-outline" size={24} color={focused ? "blue" : "gray"} />
+                  <Ionicons name="person-outline" size={24} color={focused ? "blue" : "gray"} />
                 );
               },
             }} />

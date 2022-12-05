@@ -7,6 +7,7 @@ import { combineComponents } from '../utils/combineComponents';
 const providers = [
   UserContextProvider,
   DbContextProvider,
+  FirebaseContextProvider,
 ]
 const AppContextProvider = combineComponents(...providers);
 

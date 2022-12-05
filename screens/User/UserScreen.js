@@ -1,6 +1,5 @@
 import { View, Text, SafeAreaView } from 'react-native'
 import GlobalStyles from '../../GlobalStyles'
-import Login from '../../components/organisms/Login'
 import Container from '../../components/atoms/Container'
 import ProfileViewBox from '../../components/molecules/ProfileViewBox'
 import { UserContext } from "../../contexts/UserContextProvider"
@@ -18,7 +17,6 @@ const UserScreen = ({ navigation }) => {
         <Text>
           UserScreen
         </Text>
-        <Login />
       </Container>
     </SafeAreaView>
   )
