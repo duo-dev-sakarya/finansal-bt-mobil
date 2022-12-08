@@ -8,7 +8,7 @@ const CustomTextInput = forwardRef(({label, errorMessage, ...rest }, ref) => {
 
   return (
     <View style={styles.view}>
-      {label&&<Text style={styles.label}>{label}</Text>}
+      {label&&<Text style={styles.label}>{label} : </Text>}
       <TextInput ref={ref} style={styles.input} placeholder="Type Here " {...rest} />
       {errorMessage&&<Text style={styles.errorText}>{errorMessage}</Text>}
     </View>
@@ -32,8 +32,8 @@ const makeStyles = (colors) => StyleSheet.create({
     color:"red"
   },
   label: {
-    marginVertical:6,
-    fontWeight: "bold"
+    margin:6,
+    fontWeight: "bold",
   }
 });
 

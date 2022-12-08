@@ -10,6 +10,7 @@ import {
   FIREBASE_MEASUREMENT_ID,
 } from '@env'
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 export const FirebaseContext = createContext();
 
@@ -36,9 +37,11 @@ const FirebaseContextProvider = ({ children }) => {
   const app = initializeApp(firebaseConfig);
 
   const auth = getAuth(app);
+
+  const fdb = getFirestore() 
   
   return (
-    <FirebaseContext.Provider value={{app,auth}}>
+    <FirebaseContext.Provider value={{app,auth,fdb}}>
       {children}
     </FirebaseContext.Provider>
   )

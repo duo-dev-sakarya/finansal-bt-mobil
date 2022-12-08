@@ -2394,6 +2394,14 @@
   resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-1.3.9.tgz#33e26d7ad655b012e024ef0a005a3f66201287f8"
   integrity sha512-V9aIZN19ufaKWlXT4UcM545tDiEt9DIQS+74pDgbnzoQcDypn0CvSqWopFhPACMdJatgmlZUuOrrMfTeNrBWgA==
 
+"@react-navigation/material-top-tabs@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-6.5.0.tgz#fc519d8049d8d96839ede14916ef751dbb7e9527"
+  integrity sha512-1xSPckhqgGmMMDBEztuhe3/wbi02t7mjxgQAm+lswXAwrqkhUFL9W0zzuG90TrmDc7QIXR6/pZLHz90Kg2ujTA==
+  dependencies:
+    color "^4.2.3"
+    warn-once "^0.1.0"
+
 "@react-navigation/native@^6.0.13":
   version "6.0.13"
   resolved "https://registry.npmjs.org/@react-navigation/native/-/native-6.0.13.tgz"
@@ -5163,6 +5171,11 @@ expo-auth-session@3.7.1:
     expo-web-browser "~11.0.0"
     invariant "^2.2.4"
     qs "6.9.1"
+
+expo-clipboard@~3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/expo-clipboard/-/expo-clipboard-3.1.0.tgz#ff4b7a2a796488d3784ca8a40229a37bbcb7b65e"
+  integrity sha512-0cnmySP43VnpSWONn+1yIvPT0dwJWzCaPZcOZVxuH5mLhNi4p3UDLJFZt94tu4+bnyvDKjWxCK2/LoCM0XdwwQ==
 
 expo-constants@~13.2.0, expo-constants@~13.2.4:
   version "13.2.4"
@@ -9674,6 +9687,11 @@ react-native-iphone-x-helper@^1.3.0:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
   integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
 
+react-native-pager-view@5.4.24:
+  version "5.4.24"
+  resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-5.4.24.tgz#8626e757ddc55e41eca66d2f8a8a75aec54591ee"
+  integrity sha512-dRMB7i3B+mu4NCeIN6gqbR/kC/rr2wzqO0gisXDdJwJr78G24sWoTNpLEDFo3G8TFHY9nTMutVl5CUvkN2dp6g==
+
 react-native-reanimated@~2.9.1:
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.9.1.tgz#d9a932e312c13c05b4f919e43ebbf76d996e0bc1"
@@ -9700,6 +9718,13 @@ react-native-screens@~3.15.0:
   dependencies:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
+
+react-native-tab-view@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-3.3.3.tgz#33a94db2ccbe7fe8fff0c0e3f1da09cbd07edba7"
+  integrity sha512-hrxGu/Bj/GRXt+6ErqUFMAw2E82tjeTJ97nH1dZ2FSnLYOVnY9FDqju8TkQtT3GpJGL6Ur/ZkRT4eQfYwTZbtg==
+  dependencies:
+    use-latest-callback "^0.1.5"
 
 react-native-vector-icons@^9.2.0:
   version "9.2.0"

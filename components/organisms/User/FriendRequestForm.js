@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import { Text, SafeAreaView, Button } from 'react-native'
+import { Text, SafeAreaView, Button, View } from 'react-native'
 import CustomTextInput from '../../../components/atoms/CustomTextInput'
 import { useForm } from "react-hook-form";
-
-import { fetchSignInMethodsForEmail } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { useContext } from 'react';
 import { FirebaseContext } from '../../../contexts/FirebaseContextProvider';
 import CustomButton from '../../atoms/CustomButton';
+import { doc, setDoc, getDoc, collection, } from 'firebase/firestore';
+import { UserContext } from '../../../contexts/UserContextProvider';
+import IconButton from '../../atoms/IconButton';
+import { useTheme } from '@react-navigation/native';
 
 const FriendRequestForm = () => {
 
@@ -17,34 +20,60 @@ const FriendRequestForm = () => {
     formState: { errors },
   } = useForm();
 
+  const { colors } = useTheme();
   const firebaseContext = useContext(FirebaseContext)
+  const userContext = useContext(UserContext)
+
+  const [showAddUser, setShowAddUser] = useState(false)
 
   const submit = async (data) => {
     try {
-      const res = await fetchSignInMethodsForEmail(firebaseContext.auth, data)
-      console.log(res)
+      const snapshot = await getDoc(doc(firebaseContext.fdb, 'users', data.userId))
+      if (snapshot) {
+        console.log(snapshot)
+        const res = await setDoc(doc(firebaseContext.fdb, 'users', data.userId, 'friend_requests', firebaseContext.auth.currentUser.uid), {
+          displayName: userContext.userData?.displayName,
+          photoURL: userContext.userData?.photoURL,
+          email: userContext.userData?.email
+        });
+        await setDoc(doc(firebaseContext.fdb, 'users', firebaseContext.auth.currentUser.uid, 'own_requests',data.userId ), {
+          displayName: userContext.userData?.displayName,
+          photoURL: userContext.userData?.photoURL,
+          email: userContext.userData?.email
+        });
+        console.log(res)
+      }
+
+
     } catch (err) {
       console.log(err)
     }
   }
 
   return (
-    <SafeAreaView>
-      <Text>ListContentAddScreen</Text>
-      {<CustomTextInput
-        label={"Add Friends By Mail"}
-        {...register("email", {
-          required: true, pattern:
-          {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: "invalid email address"
-          }
-        })}
-        onChangeText={text => setValue('email', text, true)}
-        errorMessage={errors.email?.message}
-      />}
-      <CustomButton title="Tx" onPress={handleSubmit(submit)} />
-    </SafeAreaView>
+    <>
+      <View sx={{ flex: 1, alignItems: "flex-end" }}>
+        <IconButton buttonName="person-add-outline" buttonColor={showAddUser ? "#009688" : "gray"} onPress={() => setShowAddUser(!showAddUser)} />
+      </View>
+      {showAddUser &&
+        <View style={{ backgroundColor: colors.card, borderRadius: 12, marginVertical: 6 }}>
+          <SafeAreaView><CustomTextInput
+            label={"Add Friends By Id"}
+            {...register("userId", {
+              required: true, pattern:
+              {
+
+                message: "invalid userId address"
+              }
+            })}
+            onChangeText={text => setValue('userId', text, true)}
+            errorMessage={errors.userId?.message}
+          />
+            <CustomButton title="Send Friend Request" onPress={handleSubmit(submit)} />
+          </SafeAreaView>
+        </View>
+      }
+    </>
   )
 }
 

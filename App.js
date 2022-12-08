@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -64,16 +64,27 @@ const UserScreens = () => {
   )
 }
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "#009688",
+    secondary: "#00AA95",
+    tertiary:"#E3FFFA",
+    quaternary:"#FFA17A"
+  },
+};
+
 export default function App() {
   return (
     <AppContextProvider>
-      <NavigationContainer>
+      <NavigationContainer  theme={MyTheme}>
         <Tab.Navigator initialRouteName="Private">
           <Tab.Screen name="Private Lists" component={OfflineListScreens}
             options={{
               tabBarIcon: ({ focused }) => {
                 return (
-                  <Ionicons name="cloud-offline-outline" size={24} color={focused ? "blue" : "gray"} />
+                  <Ionicons name="cloud-offline-outline" size={24} color={focused ? "#009688" : "gray"} />
                 );
               },
             }} />
@@ -81,7 +92,7 @@ export default function App() {
             options={{
               tabBarIcon: ({ focused }) => {
                 return (
-                  <Ionicons name="cloud-outline" size={24} color={focused ? "blue" : "gray"} />
+                  <Ionicons name="cloud-outline" size={24} color={focused ? "#009688" : "gray"} />
                 );
               },
             }} />
@@ -89,7 +100,7 @@ export default function App() {
             options={{
               tabBarIcon: ({ focused }) => {
                 return (
-                  <Ionicons name="person-outline" size={24} color={focused ? "blue" : "gray"} />
+                  <Ionicons name="person-outline" size={24} color={focused ? "#009688" : "gray"} />
                 );
               },
             }} />
