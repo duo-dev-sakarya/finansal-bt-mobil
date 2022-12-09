@@ -5,7 +5,7 @@ import SignOutButton from './SignOutButton';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ApproveReqeustButton from './ApproveRequestButton';
 import DenyReqeustButton from './DenyRequestButton';
-
+import RemoveFriendshipButton from './RemoveFriendshipButton';
 const ProfileViewBox = ({ displayName, ppURI, email, userId, accept, deny, remove,mainUser }) => {
   const { colors } = useTheme();
   const styles = makeStyles(colors, mainUser)
@@ -30,6 +30,7 @@ const ProfileViewBox = ({ displayName, ppURI, email, userId, accept, deny, remov
           { mainUser && <SignOutButton />}
           { accept && <ApproveReqeustButton userId={userId} displayName={displayName} photoURL={ppURI} email={email} refresh={accept}/> }
           { deny && <DenyReqeustButton userId={userId}  refresh={deny} />}
+          { remove && <RemoveFriendshipButton userId={userId}  refresh={remove}/>}
         </View>
 
       </View>

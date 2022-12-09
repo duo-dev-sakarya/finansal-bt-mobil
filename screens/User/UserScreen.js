@@ -27,7 +27,7 @@ const UserScreen = ({ navigation }) => {
           displayName={userContext.userData?.displayName}
           ppURI={userContext.userData?.photoURL}
           email={userContext.userData?.email}
-          userId={firebaseContext.auth.currentUser.uid}
+          userId={firebaseContext.auth.currentUser?.uid}
           mainUser
         />
         <FriendRequestForm initialRouteName="FriendsList" />

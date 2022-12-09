@@ -31,7 +31,7 @@ const FriendsList = () => {
         displayName={item.displayName}
         ppURI={item.photoURL}
         email={item.email}
-        userId={firebaseContext.auth.currentUser.uid}
+        userId={item.id}
         remove={getFriendsReq}
       />
       }
