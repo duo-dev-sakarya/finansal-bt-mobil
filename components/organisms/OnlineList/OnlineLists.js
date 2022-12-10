@@ -4,16 +4,16 @@ import ProfileViewBox from "../../molecules/ProfileViewBox"
 import { doc, setDoc, getDocs, collection, } from 'firebase/firestore';
 import { FirebaseContext } from "../../../contexts/FirebaseContextProvider";
 
-const FriendsList = () => {
+const OnlineLists = ({groupId}) => {
 
   const firebaseContext = useContext(FirebaseContext)
   const [data, setData] = useState([])
   useEffect(() => {
-    getFriendsReq()
+    getLists()
   }, [])
 
-  const getFriendsReq = async () => {
-    const res = await getDocs(collection(firebaseContext.fdb, 'users', firebaseContext.auth.currentUser.uid, 'friends'))
+  const getLists = async () => {
+    const res = await getDocs(collection(firebaseContext.fdb, 'groups',groupId))
     const arr = res.docs.map((d) => ({ id: d.id, ...d.data() }))
     setData(arr)
   }
@@ -32,7 +32,7 @@ const FriendsList = () => {
         ppURI={item.photoURL}
         email={item.email}
         userId={item.id}
-        remove={true}
+        remove={getFriendsReq}
       />
       }
       keyExtractor={item => item.index}
@@ -42,4 +42,4 @@ const FriendsList = () => {
   )
 }
 
-export default FriendsList
+export default OnlineLists

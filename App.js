@@ -15,6 +15,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import LoginScreen from './screens/User/LoginScreen';
 import { UserContext } from './contexts/UserContextProvider';
 import { useContext } from 'react';
+import OnlineListScreen from './screens/OnlineList/OnlineListScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -39,10 +40,7 @@ const OnlineListScreens = () => {
     <Stack.Navigator initialRouteName="ListsScreen">
       {userContext.userData
         ? <>
-          <Stack.Screen name="ListsScreen" component={ListsScreen} />
-          <Stack.Screen name="ListAddScreen" component={ListAddScreen} />
-          <Stack.Screen name="ListContentScreen" component={ListContentScreen} />
-          <Stack.Screen name="ListContentAddScreen" component={ListContentAddScreen} />
+          <Stack.Screen name="ListsScreen" component={OnlineListScreen} />
         </>
         : <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />}
     </Stack.Navigator>
