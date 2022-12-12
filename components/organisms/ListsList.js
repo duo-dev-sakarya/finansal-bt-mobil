@@ -7,7 +7,7 @@ import { VirtualizedList } from 'react-native'
 
 const ListsList = ({}) => {
 
-  const { fetchList, lastTransaction } = useListService(loadLists)
+  const { fetchList, lastTransaction } = useListService()
   const [data, setData] = useState([])
 
   useEffect(() => {

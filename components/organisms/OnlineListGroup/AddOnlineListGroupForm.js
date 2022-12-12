@@ -46,7 +46,7 @@ const AddOnlineListGroupForm = () => {
     try {
       console.log(data.groupName, values)
 
-
+      values.push(firebaseContext.auth.currentUser.uid)
 
       const batch = writeBatch(firebaseContext.fdb);
       const res = await batch.set(doc(firebaseContext.fdb, 'groups', firebaseContext.auth.currentUser.uid + data.groupName), {
@@ -60,10 +60,6 @@ const AddOnlineListGroupForm = () => {
           users: values
         });
       }) 
-      batch.set(doc(firebaseContext.fdb, 'users', firebaseContext.auth.currentUser.uid, "groups", firebaseContext.auth.currentUser.uid + data.groupName), {
-        name: data.groupName,
-        users: values
-      });
       batch.commit()
       console.log(res)
 

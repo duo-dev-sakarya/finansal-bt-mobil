@@ -16,6 +16,8 @@ import LoginScreen from './screens/User/LoginScreen';
 import { UserContext } from './contexts/UserContextProvider';
 import { useContext } from 'react';
 import OnlineListScreen from './screens/OnlineList/OnlineListScreen';
+import OnlineListContentScreen from './screens/OnlineList/OnlineListContentScreen';
+import OnlineListContentAddScreen from './screens/OnlineList/OnlineListContentAddScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -41,6 +43,8 @@ const OnlineListScreens = () => {
       {userContext.userData
         ? <>
           <Stack.Screen name="ListsScreen" component={OnlineListScreen} />
+          <Stack.Screen name="OnlineListContentScreen" component={OnlineListContentScreen} />
+          <Stack.Screen name="OnlineListContentAddScreen" component={OnlineListContentAddScreen} />
         </>
         : <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />}
     </Stack.Navigator>

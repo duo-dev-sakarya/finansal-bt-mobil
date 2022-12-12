@@ -4,21 +4,24 @@ import ProfileViewBox from "../../molecules/ProfileViewBox"
 import { doc, setDoc, getDocs, collection, getDoc } from 'firebase/firestore';
 import { FirebaseContext } from "../../../contexts/FirebaseContextProvider";
 import ListViewbox from "../../molecules/ListViewbox";
+import { useRoute } from "@react-navigation/native";
+import ListContentViewBox from "../../molecules/ListContentBox";
+const OnlineListContents = ({ }) => {
 
-const OnlineLists = ({ groupId }) => {
-
+  const route = useRoute()
   const firebaseContext = useContext(FirebaseContext)
   const [data, setData] = useState([])
   useEffect(() => {
-    getLists(groupId)
-  }, [groupId])
+    getListContents(route.params)
+  }, [route.params])
 
-  const getLists = async (groupId) => {
+  const getListContents = async ({listId,groupId}) => {
     try {
-      console.log(groupId, firebaseContext.auth.currentUser.uid)
-      const res = await getDocs(collection(firebaseContext.fdb, 'groups', groupId, "lists"))
+      console.log(groupId,listId, firebaseContext.auth.currentUser.uid)
+      const res = await getDocs(collection(firebaseContext.fdb, 'groups', groupId, "lists",listId,"contents"))
       const arr = res.docs.map((d) => ({ id: d.id, ...d.data() }))
       setData(arr)
+
     }
     catch (err) {
       console.log(err)
@@ -34,11 +37,14 @@ const OnlineLists = ({ groupId }) => {
     <VirtualizedList
       data={data}
       initialNumToRender={9}
-      renderItem={({ item }) => <ListViewbox
+      renderItem={({ item }) => <ListContentViewBox
         name={item.name}
         id={item.id}
-        groupId={groupId}
-        refresh={getLists}
+        groupId={route.params.groupId}
+        avgPrice={item.avgPrice}
+        min={item.min}
+        max={item.max}
+        refresh={getListContents}
       />
       }
       keyExtractor={item => item.index}
@@ -48,4 +54,4 @@ const OnlineLists = ({ groupId }) => {
   )
 }
 
-export default OnlineLists
+export default OnlineListContents
