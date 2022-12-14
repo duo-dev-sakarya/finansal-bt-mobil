@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, SafeAreaView, Button, View } from 'react-native'
+import { Text, SafeAreaView, Button, View, KeyboardAvoidingView } from 'react-native'
 import CustomTextInput from '../../../components/atoms/CustomTextInput'
 import { useForm } from "react-hook-form";
 import { getAuth } from 'firebase/auth';
@@ -9,10 +9,10 @@ import CustomButton from '../../atoms/CustomButton';
 import { doc, setDoc, addDoc, collection, writeBatch, getDoc } from 'firebase/firestore';
 import { UserContext } from '../../../contexts/UserContextProvider';
 import IconButton from '../../atoms/IconButton';
-import { useTheme } from '@react-navigation/native';
-import DropDownPicker from 'react-native-dropdown-picker'
+import { useTheme ,useRoute, useNavigation} from '@react-navigation/native';
+import {  } from '@react-navigation/native';
 
-const OnlineListAddUpdate = ({groupId}) => {
+const OnlineListAddUpdate = () => {
 
   const {
     handleSubmit,
@@ -21,42 +21,44 @@ const OnlineListAddUpdate = ({groupId}) => {
     formState: { errors },
   } = useForm();
 
+  const route = useRoute()
+  const navigation = useNavigation()
+
   const { colors } = useTheme();
   const firebaseContext = useContext(FirebaseContext)
 
-  const [showAddUser, setShowAddUser] = useState(false)
-
   const submit = async (data) => {
-    console.log(groupId,data)
-    if(groupId!==null){
+    const groupId = route.params.groupId
+    console.log(groupId, data)
+    if (groupId !== null) {
       const res = await addDoc(collection(firebaseContext.fdb, 'groups', groupId, 'lists'), {
-        name:data.name
+        name: data.name
       });
+      navigation.goBack()
     }
 
   }
 
   return (
-    <>
-      <View sx={{ flex: 1, alignItems: "flex-end" }}>
-        <IconButton buttonName="person-add-outline" buttonColor={showAddUser ? "#009688" : "gray"} onPress={() => setShowAddUser(!showAddUser)} />
-      </View>
-      {showAddUser &&
-        <View style={{ backgroundColor: colors.card, borderRadius: 12, marginVertical: 6 }}>
-          <SafeAreaView>
-            <CustomTextInput
-              label={"Add Friends By Mail"}
-              {...register("name", {
-                required: true
-              })}
-              onChangeText={text => setValue('name', text, true)}
-              errorMessage={errors.name?.message}
-            />
-            <CustomButton title="Send Friend Request" onPress={handleSubmit(submit)} />
-          </SafeAreaView>
-        </View>
-      }
-    </>
+
+    <SafeAreaView style={{
+      flex: 1,
+      justifyContent: "center",
+      margin: 10
+    }}>
+      <KeyboardAvoidingView >
+        <CustomTextInput
+          label={"List Name"}
+          {...register("name", {
+            required: true
+          })}
+          onChangeText={text => setValue('name', text, true)}
+          errorMessage={errors.name?.message}
+        />
+        <CustomButton title="Add List" onPress={handleSubmit(submit)} />
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+
   )
 }
 

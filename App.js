@@ -18,9 +18,10 @@ import { useContext } from 'react';
 import OnlineListScreen from './screens/OnlineList/OnlineListScreen';
 import OnlineListContentScreen from './screens/OnlineList/OnlineListContentScreen';
 import OnlineListContentAddScreen from './screens/OnlineList/OnlineListContentAddScreen';
+import OnlineListAddGroupScreen from './screens/OnlineList/OnlineListAddGroupScreen';
+import OnlineListAddUpdateScreen from './screens/OnlineList/OnlineListAddUpdateScreen';
 
 const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
 const OfflineListScreens = () => {
@@ -45,6 +46,8 @@ const OnlineListScreens = () => {
           <Stack.Screen name="ListsScreen" component={OnlineListScreen} />
           <Stack.Screen name="OnlineListContentScreen" component={OnlineListContentScreen} />
           <Stack.Screen name="OnlineListContentAddScreen" component={OnlineListContentAddScreen} />
+          <Stack.Screen name="OnlineListAddGroupScreen" component={OnlineListAddGroupScreen} />
+          <Stack.Screen name="OnlineListAddUpdateScreen" component={OnlineListAddUpdateScreen} />
         </>
         : <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />}
     </Stack.Navigator>
@@ -80,7 +83,7 @@ const MyTheme = {
 export default function App() {
   return (
     <AppContextProvider>
-      <NavigationContainer  theme={MyTheme}>
+      <NavigationContainer theme={MyTheme}>
         <Tab.Navigator initialRouteName="Private">
           <Tab.Screen name="Private Lists" component={OfflineListScreens}
             options={{

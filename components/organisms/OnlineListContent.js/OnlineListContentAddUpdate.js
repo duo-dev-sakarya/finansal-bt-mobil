@@ -13,6 +13,10 @@ import { useTheme } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker'
 import { useRoute } from '@react-navigation/native';
 
+const valSchema = yup.object().shape({
+  name: yup.string().min(6).max(24).required(),
+})
+
 const OnlineListContentAddUpdate = ({}) => {
 
   const {
@@ -20,7 +24,9 @@ const OnlineListContentAddUpdate = ({}) => {
     setValue,
     register,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    validationSchema: valSchema
+  });
 
   const routes = useRoute()
   const { colors } = useTheme();
@@ -46,14 +52,14 @@ const OnlineListContentAddUpdate = ({}) => {
         <View style={{ backgroundColor: colors.card, borderRadius: 12, marginVertical: 6 }}>
           <SafeAreaView>
             <CustomTextInput
-              label={"Add Friends By Mail"}
+              label={"List Content Name"}
               {...register("name", {
                 required: true
               })}
               onChangeText={text => setValue('name', text, true)}
               errorMessage={errors.name?.message}
             />
-            <CustomButton title="Send Friend Request" onPress={handleSubmit(submit)} />
+            <CustomButton title="Add Content" onPress={handleSubmit(submit)} />
           </SafeAreaView>
         </View>
       }

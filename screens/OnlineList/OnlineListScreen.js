@@ -8,13 +8,17 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { getDocs, collection } from "firebase/firestore";
 import { FirebaseContext } from "../../contexts/FirebaseContextProvider";
 import OnlineListAddUpdate from "../../components/organisms/OnlineList/OnlineListAddUpdate";
+import IconButton from "../../components/atoms/IconButton";
+import { useIsFocused } from "@react-navigation/native";
+import FixedAddButton from "../../components/atoms/FixedAddButton";
 
-const OnlineListScreen = () => {
+const OnlineListScreen = ({ navigation }) => {
   const firebaseContext = useContext(FirebaseContext)
-  const [selectedValue, setSelectedValue] = useState("java");
+  const [selectedValue, setSelectedValue] = useState();
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([]);
-  
+  const focus = useIsFocused();
+
   const getUserGroups = async () => {
     const res = await getDocs(collection(firebaseContext.fdb, 'users', firebaseContext.auth.currentUser.uid, 'groups'))
     const arr = res.docs.map((d) => ({ value: d.id, label: d.data().name }))
@@ -23,22 +27,33 @@ const OnlineListScreen = () => {
   }
 
   useEffect(() => {
-    getUserGroups()
-  }, [])
+    if (focus == true) {
+      getUserGroups()
+    }
+  }, [focus])
 
   return (
     <Container>
-      <DropDownPicker
-        open={open}
-        value={selectedValue}
-        items={items}
-        setOpen={setOpen}
-        setValue={setSelectedValue}
-        setItems={setItems}
-      />
+      <View style={{ flexDirection: "row" }}>
+        <View style={{ flex: 1 }}>
+          <DropDownPicker
+            open={open}
+            value={selectedValue}
+            items={items}
+            setOpen={setOpen}
+            setValue={setSelectedValue}
+            setItems={setItems}
+          />
+        </View>
+        <View sx={{ flex: 1, alignItems: "flex-end" }}>
+          <IconButton buttonName="person-add-outline" buttonColor="gray" onPress={() => navigation.navigate("OnlineListAddGroupScreen")} />
+        </View>
+      </View>
+
       <OnlineLists groupId={selectedValue} />
-      <AddOnlineListGroupForm />
-      <OnlineListAddUpdate groupId={selectedValue}/>
+
+      {selectedValue && <FixedAddButton onPress={() => navigation.navigate("OnlineListAddUpdateScreen", { groupId: selectedValue })} />}
+
     </Container>
   )
 }
