@@ -7,7 +7,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import ProductSelect from '../../components/organisms/Product/ProductSelect'
 import CustomButton from '../../components/atoms/CustomButton'
 import { useRoute } from '@react-navigation/native'
-import IconButton from '../../components/atoms/IconButton'
+import FixedAddButton from '../../components/atoms/FixedAddButton'
+
 const TopTab = createMaterialTopTabNavigator();
 
 
@@ -15,8 +16,8 @@ const OnlineListContentScreen = ({navigation}) => {
   const route = useRoute()
   return (
     <Container>
-      <IconButton buttonName="person-add-outline" buttonColor= "gray" onPress={()=>navigation.navigate("OnlineListContentAddScreen",route.params)} />
       <OnlineListContents/>
+      <FixedAddButton onPress={()=>navigation.navigate("OnlineListContentAddScreen",route.params)} />
     </Container>
   )
 }

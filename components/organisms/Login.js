@@ -10,6 +10,7 @@ import CustomButton from '../atoms/CustomButton'
 import { UserContext } from "../../contexts/UserContextProvider"
 import { FirebaseContext } from '../../contexts/FirebaseContextProvider';
 import { GOOGLE_CLIENT_ID } from '@env'
+import * as SecureStore from 'expo-secure-store';
 
 WebBrowser.maybeCompleteAuthSession();
 

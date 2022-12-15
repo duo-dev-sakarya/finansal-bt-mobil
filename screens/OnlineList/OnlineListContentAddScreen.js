@@ -1,6 +1,6 @@
 import React from 'react'
 import Container from '../../components/atoms/Container'
-import { Text } from 'react-native'
+import { Text, KeyboardAvoidingView } from 'react-native'
 import OnlineListContents from '../../components/organisms/OnlineListContent.js/OnlineListContents'
 import ProductAddUpdate from '../../components/organisms/Product/ProductAddUpdate'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';

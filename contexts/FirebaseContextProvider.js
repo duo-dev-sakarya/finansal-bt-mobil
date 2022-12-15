@@ -39,6 +39,15 @@ const FirebaseContextProvider = ({ children }) => {
   const auth = getAuth(app);
 
   const fdb = getFirestore() 
+
+  const reloginWithValidCredential = async() =>{
+    console.log("loggedin")
+    signInWithCredential(auth, await SecureStore.getItemAsync('secure_credential'))
+    console.log("loggedin")
+  }
+
+  reloginWithValidCredential()
+
   
   return (
     <FirebaseContext.Provider value={{app,auth,fdb}}>
