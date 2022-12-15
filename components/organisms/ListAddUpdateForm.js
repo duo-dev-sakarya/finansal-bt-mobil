@@ -22,15 +22,16 @@ const ListAddUpdateForm = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView>
-      <Text>ListAddScreen</Text>
-      {<CustomTextInput
-        label={"Liste Adı"}
+    <SafeAreaView sx={{      flex: 1,
+      alignItems: "center",
+      margin: 10}}>
+      <CustomTextInput
+        label={"List Name"}
         {...register("name", { required: true, maxLength: 30 })}
         onChangeText={text => setValue('name', text, true)}
         errorMessage={errors.title?.message}
-      />}
-      <CustomButton title="Tx" onPress={handleSubmit(submit)} />
+      />
+      <CustomButton title="Add List" onPress={handleSubmit(submit)} />
     </SafeAreaView>
   )
 }

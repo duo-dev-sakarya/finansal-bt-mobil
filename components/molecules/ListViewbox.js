@@ -12,7 +12,8 @@ const ListViewbox = ({ name, id,groupId,refresh }) => {
     if (id) {
       navigation.navigate("OnlineListContentScreen", {
         groupId: groupId,
-        listId: id
+        listId: id,
+        listName:name
       })
     }
   }

@@ -28,14 +28,13 @@ const ListContentAddUpdateForm = () => {
 
   return (
     <SafeAreaView>
-      <Text>ListContentAddScreen</Text>
-      {<CustomTextInput
-        label={"Liste Adı"}
+      <CustomTextInput
+        label={"List Content Name"}
         {...register("name", { required: true, maxLength: 30 })}
         onChangeText={text => setValue('name', text, true)}
         errorMessage={errors.title?.message}
-      />}
-      <CustomButton title="Tx" onPress={handleSubmit(submit)} />
+      />
+      <CustomButton title="Add List Content" onPress={handleSubmit(submit)} />
     </SafeAreaView>
   )
 }

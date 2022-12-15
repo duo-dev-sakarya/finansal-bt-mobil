@@ -9,7 +9,8 @@ const ListViewBox = ({ listId, listContentId, name }) => {
   const openListContent = () => {
     if (listId) {
       navigation.navigate("ListContentScreen", {
-        listId: listId
+        listId: listId,
+        listName: name
       })
     }
   }

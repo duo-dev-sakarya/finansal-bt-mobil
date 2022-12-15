@@ -43,6 +43,7 @@ const OnlineListScreen = ({ navigation }) => {
             setOpen={setOpen}
             setValue={setSelectedValue}
             setItems={setItems}
+            placeholder="Select an group"
           />
         </View>
         <View sx={{ flex: 1, alignItems: "flex-end" }}>

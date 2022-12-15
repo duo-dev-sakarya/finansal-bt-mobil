@@ -5,7 +5,7 @@ import ListViewBox from '../../components/atoms/ListViewBox'
 import useListService from '../../services/ListService'
 import { VirtualizedList } from 'react-native'
 
-const ListsList = ({}) => {
+const ListsList = ({ }) => {
 
   const { fetchList, lastTransaction } = useListService()
   const [data, setData] = useState([])
@@ -27,9 +27,9 @@ const ListsList = ({}) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Text>ListsScreen</Text>
+      {/*<Text>ListsScreen</Text>
       <Text>{data.length}</Text>
-      <Text>{lastTransaction.toLocaleTimeString()}</Text>
+      <Text>{lastTransaction.toLocaleTimeString()}</Text>*/}
       <VirtualizedList
         data={data}
         initialNumToRender={9}

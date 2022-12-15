@@ -3,7 +3,6 @@ import { useEffect, useState, useContext } from "react"
 import ProfileViewBox from "../../molecules/ProfileViewBox"
 import { doc, setDoc, getDocs, collection, getDoc } from 'firebase/firestore';
 import { FirebaseContext } from "../../../contexts/FirebaseContextProvider";
-import ListViewbox from "../../molecules/ListViewbox";
 import { useRoute } from "@react-navigation/native";
 import ListContentViewBox from "../../molecules/ListContentBox";
 const OnlineListContents = ({ }) => {
@@ -11,17 +10,17 @@ const OnlineListContents = ({ }) => {
   const route = useRoute()
   const firebaseContext = useContext(FirebaseContext)
   const [data, setData] = useState([])
-  const [loading,setLoading] = useState(false)
-  
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     getListContents(route.params)
   }, [route.params])
 
-  const getListContents = async ({listId,groupId}) => {
+  const getListContents = async ({ listId, groupId }) => {
     try {
       setLoading(true)
-      console.log(groupId,listId, firebaseContext.auth.currentUser.uid)
-      const res = await getDocs(collection(firebaseContext.fdb, 'groups', groupId, "lists",listId,"contents"))
+      console.log(groupId, listId, firebaseContext.auth.currentUser.uid)
+      const res = await getDocs(collection(firebaseContext.fdb, 'groups', groupId, "lists", listId, "contents"))
       const arr = res.docs.map((d) => ({ id: d.id, ...d.data() }))
       setData(arr)
       setLoading(false)
@@ -44,7 +43,7 @@ const OnlineListContents = ({ }) => {
       refreshControl={
         <RefreshControl
           onRefresh={() => getListContents(route.params)}
-          refreshing={loading&&data.length>0}
+          refreshing={loading && data.length > 0}
         />
       }
       renderItem={({ item }) => <ListContentViewBox

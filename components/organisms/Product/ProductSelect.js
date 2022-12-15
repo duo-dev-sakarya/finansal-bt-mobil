@@ -3,7 +3,6 @@ import { useEffect, useState, useContext } from "react"
 import ProfileViewBox from "../../molecules/ProfileViewBox"
 import { doc, setDoc, getDocs, collection, query ,where} from 'firebase/firestore';
 import { FirebaseContext } from "../../../contexts/FirebaseContextProvider";
-import ListViewbox from "../../molecules/ListViewbox";
 
 import CustomButton from "../../atoms/CustomButton";
 import CustomTextInput from "../../atoms/CustomTextInput";

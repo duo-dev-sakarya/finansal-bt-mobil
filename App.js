@@ -27,10 +27,10 @@ const Tab = createBottomTabNavigator();
 const OfflineListScreens = () => {
   return (
     <Stack.Navigator initialRouteName="ListsScreen">
-      <Stack.Screen name="ListsScreen" component={ListsScreen} />
-      <Stack.Screen name="ListAddScreen" component={ListAddScreen} />
-      <Stack.Screen name="ListContentScreen" component={ListContentScreen} />
-      <Stack.Screen name="ListContentAddScreen" component={ListContentAddScreen} />
+      <Stack.Screen name="ListsScreen" component={ListsScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="ListAddScreen" component={ListAddScreen} options={{ headerShown: false }}/>
+      <Stack.Screen name="ListContentScreen" component={ListContentScreen} options={({ route }) => ({ title: "List : " + route.params.listName })}/>
+      <Stack.Screen name="ListContentAddScreen" component={ListContentAddScreen} options={({ route }) => ({ title: "Add to List : " +route.params.listName })}/>
     </Stack.Navigator>
   )
 }
@@ -43,11 +43,11 @@ const OnlineListScreens = () => {
     <Stack.Navigator initialRouteName="ListsScreen">
       {firebaseContext.userData
         ? <>
-          <Stack.Screen name="ListsScreen" component={OnlineListScreen} />
-          <Stack.Screen name="OnlineListContentScreen" component={OnlineListContentScreen} />
-          <Stack.Screen name="OnlineListContentAddScreen" component={OnlineListContentAddScreen} />
-          <Stack.Screen name="OnlineListAddGroupScreen" component={OnlineListAddGroupScreen} />
-          <Stack.Screen name="OnlineListAddUpdateScreen" component={OnlineListAddUpdateScreen} />
+          <Stack.Screen name="ListsScreen" component={OnlineListScreen} options={{ title: 'Online Lists' }}/>
+          <Stack.Screen name="OnlineListContentScreen" component={OnlineListContentScreen} options={({ route }) => ({ title: "List : " + route.params.listName })}/>
+          <Stack.Screen name="OnlineListContentAddScreen" component={OnlineListContentAddScreen} options={({ route }) => ({ title: "Add to List : " + route.params.listName })}/>
+          <Stack.Screen name="OnlineListAddGroupScreen" component={OnlineListAddGroupScreen} options={{ title: 'Online List Group Add' }}/>
+          <Stack.Screen name="OnlineListAddUpdateScreen" component={OnlineListAddUpdateScreen}  options={{ title: 'Online List Add' }}/>
         </>
         : <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />}
     </Stack.Navigator>

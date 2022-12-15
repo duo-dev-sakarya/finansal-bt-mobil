@@ -8,8 +8,38 @@ const useListContentService = () => {
     const currentDate = new Date()
     return new Promise(async (resolve, reject) =>
       await db.transaction(tx => {
-        tx.executeSql(`INSERT INTO list_contents (name, created_at, updated_at, is_active, list_id) values (?, ?, ?, ?, ?)`,
-          [name, currentDate, currentDate, 1, listId],
+        tx.executeSql(`INSERT INTO list_contents (name, created_at, updated_at, is_active, list_id, is_checked) values (?, ?, ?, ?, ?, ?)`,
+          [name, currentDate, currentDate, 1, listId, 0],
+          (txObj, resultSet) => {
+            resolve(resultSet.insertId)
+            setLastTransaction(new Date())
+          },
+          (txObj, error) => { console.log('Error', error), reject() })
+      })
+    )
+  }
+
+  const checkListContent = async (listContentId,check) => {
+    const currentDate = new Date()
+    return new Promise(async (resolve, reject) =>
+      await db.transaction(tx => {
+        tx.executeSql(`UPDATE list_contents SET is_checked = ?, updated_at = ? WHERE id = ?`,
+          [check,currentDate, listContentId],
+          (txObj, resultSet) => {
+            resolve(resultSet.insertId)
+            setLastTransaction(new Date())
+          },
+          (txObj, error) => { console.log('Error', error), reject() })
+      })
+    )
+  }
+
+  const deleteListContent = async (listContentId) => {
+    const currentDate = new Date()
+    return new Promise(async (resolve, reject) =>
+      await db.transaction(tx => {
+        tx.executeSql(`DELETE FROM list_contents WHERE id = ?`,
+          [listContentId],
           (txObj, resultSet) => {
             resolve(resultSet.insertId)
             setLastTransaction(new Date())
@@ -36,7 +66,9 @@ const useListContentService = () => {
   return {
     addListContent,
     fetchListContent,
-    lastTransaction
+    lastTransaction,
+    checkListContent,
+    deleteListContent
   }
 }
 

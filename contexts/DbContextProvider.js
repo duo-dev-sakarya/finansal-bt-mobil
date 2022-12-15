@@ -21,6 +21,7 @@ const DbContextProvider = ({ children }) => {
           updated_at INT, 
           is_active INT,
           list_id INTEGER, 
+          is_checked INT,
           FOREIGN KEY (list_id) REFERENCES lists(id)
           )`
       )
