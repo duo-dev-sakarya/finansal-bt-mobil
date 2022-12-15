@@ -13,7 +13,7 @@ import UserScreen from './screens/User/UserScreen';
 import 'react-native-gesture-handler';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import LoginScreen from './screens/User/LoginScreen';
-import { UserContext } from './contexts/UserContextProvider';
+import { FirebaseContext } from './contexts/FirebaseContextProvider';
 import { useContext } from 'react';
 import OnlineListScreen from './screens/OnlineList/OnlineListScreen';
 import OnlineListContentScreen from './screens/OnlineList/OnlineListContentScreen';
@@ -37,11 +37,11 @@ const OfflineListScreens = () => {
 
 const OnlineListScreens = () => {
   
-  const userContext = useContext(UserContext);
+  const firebaseContext = useContext(FirebaseContext);
 
   return (
     <Stack.Navigator initialRouteName="ListsScreen">
-      {userContext.userData
+      {firebaseContext.userData
         ? <>
           <Stack.Screen name="ListsScreen" component={OnlineListScreen} />
           <Stack.Screen name="OnlineListContentScreen" component={OnlineListContentScreen} />
@@ -57,11 +57,11 @@ const OnlineListScreens = () => {
 
 const UserScreens = () => {
 
-  const userContext = useContext(UserContext);
+  const firebaseContext = useContext(FirebaseContext);
 
   return (
     <Stack.Navigator >
-      {userContext.userData
+      {firebaseContext.userData
         ? <Stack.Screen name="UserScreen" component={UserScreen} options={{ headerShown: false }} />
         : <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
       }

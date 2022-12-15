@@ -7,8 +7,7 @@ import { getAuth, GoogleAuthProvider, signInWithCredential } from 'firebase/auth
 import { View } from 'react-native';
 import axios from 'axios'
 import CustomButton from '../atoms/CustomButton'
-import { UserContext } from "../../contexts/UserContextProvider"
-import { FirebaseContext } from '../../contexts/FirebaseContextProvider';
+import { FirebaseContext } from "../../contexts/FirebaseContextProvider"
 import { GOOGLE_CLIENT_ID } from '@env'
 import * as SecureStore from 'expo-secure-store';
 
@@ -16,7 +15,6 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function Login() {
 
-  const userContext = React.useContext(UserContext);
   const firebaseContext = React.useContext(FirebaseContext);
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
@@ -30,11 +28,11 @@ export default function Login() {
       if (response?.type === 'success') {
         const { id_token } = response.params;
         console.log(response)
-        const credential = GoogleAuthProvider.credential(id_token);
-        singInFirebaseWithCredentials(firebaseContext.auth, credential)
+
+        singInFirebaseWithCredentials(firebaseContext.auth, id_token)
 
 
-        requestExample()
+        //requestExample()
       }
     } catch (err) {
       console.log(err)
@@ -42,12 +40,15 @@ export default function Login() {
 
   }, [response]);
 
-  const singInFirebaseWithCredentials = async (auth, credential) => {
+  const singInFirebaseWithCredentials = async (auth, id_token) => {
     try{
+      console.log('id_token',id_token)
+      await SecureStore.setItemAsync('id_token',id_token);
+      const credential = GoogleAuthProvider.credential(id_token);
       const res = await signInWithCredential(auth, credential)
       console.log(res.user);
-      userContext.setToken(res.user.accessToken)
-      userContext.setUserData(res.user)
+      firebaseContext.setToken(res.user.accessToken)
+      firebaseContext.setUserData(res.user)
     }catch(err){
       console.log(err,auth, credential);
     }

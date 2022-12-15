@@ -3,17 +3,16 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { signOut } from "firebase/auth";
 import { useContext } from "react";
 import { FirebaseContext } from "../../contexts/FirebaseContextProvider";
-import { UserContext } from "../../contexts/UserContextProvider";
+
 
 const SignOutButton = () => {
   const firebaseContext = useContext(FirebaseContext)
-  const userContext = useContext(UserContext)
 
   const logout = async() => {
     try {
       await signOut(firebaseContext.auth)
-      userContext.setUserData()
-      userContext.setToken()
+      firebaseContext.setUserData()
+      firebaseContext.setToken()
     }catch(err) {
       console.log(err)
     }

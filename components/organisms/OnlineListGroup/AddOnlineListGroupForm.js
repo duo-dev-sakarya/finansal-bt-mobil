@@ -7,7 +7,6 @@ import { useContext } from 'react';
 import { FirebaseContext } from '../../../contexts/FirebaseContextProvider';
 import CustomButton from '../../atoms/CustomButton';
 import { doc, setDoc, getDocs, collection, writeBatch, getDoc } from 'firebase/firestore';
-import { UserContext } from '../../../contexts/UserContextProvider';
 import IconButton from '../../atoms/IconButton';
 import { useTheme } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker'
@@ -24,7 +23,6 @@ const AddOnlineListGroupForm = () => {
 
   const { colors } = useTheme();
   const firebaseContext = useContext(FirebaseContext)
-  const userContext = useContext(UserContext)
   const navigation = useNavigation()
 
   const [showAddUser, setShowAddUser] = useState(false)

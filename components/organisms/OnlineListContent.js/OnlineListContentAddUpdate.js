@@ -7,7 +7,6 @@ import { useContext } from 'react';
 import { FirebaseContext } from '../../../contexts/FirebaseContextProvider';
 import CustomButton from '../../atoms/CustomButton';
 import { doc, setDoc, addDoc, collection, writeBatch, getDoc } from 'firebase/firestore';
-import { UserContext } from '../../../contexts/UserContextProvider';
 import IconButton from '../../atoms/IconButton';
 import { useTheme } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker'

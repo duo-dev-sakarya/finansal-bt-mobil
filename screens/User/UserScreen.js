@@ -2,7 +2,6 @@ import { View, Text, SafeAreaView } from 'react-native'
 import GlobalStyles from '../../GlobalStyles'
 import Container from '../../components/atoms/Container'
 import ProfileViewBox from '../../components/molecules/ProfileViewBox'
-import { UserContext } from "../../contexts/UserContextProvider"
 import { useContext } from 'react'
 import FriendRequestForm from '../../components/organisms/User/FriendRequestForm'
 import { FirebaseContext } from '../../contexts/FirebaseContextProvider'
@@ -15,7 +14,6 @@ import FriendsList from '../../components/organisms/User/FriendsList'
 const TopTab = createMaterialTopTabNavigator();
 
 const UserScreen = ({ navigation }) => {
-  const userContext = useContext(UserContext)
   const firebaseContext = useContext(FirebaseContext)
 
   const [showAddUser, setShowAddUser] = useState(false)
@@ -24,9 +22,9 @@ const UserScreen = ({ navigation }) => {
     <SafeAreaView style={GlobalStyles.droidSafeArea}>
       <Container>
         <ProfileViewBox
-          displayName={userContext.userData?.displayName}
-          ppURI={userContext.userData?.photoURL}
-          email={userContext.userData?.email}
+          displayName={firebaseContext.userData?.displayName}
+          ppURI={firebaseContext.userData?.photoURL}
+          email={firebaseContext.userData?.email}
           userId={firebaseContext.auth.currentUser?.uid}
           mainUser
         />

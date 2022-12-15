@@ -7,7 +7,6 @@ import { useContext } from 'react';
 import { FirebaseContext } from '../../../contexts/FirebaseContextProvider';
 import CustomButton from '../../atoms/CustomButton';
 import { doc, setDoc, getDoc, collection, } from 'firebase/firestore';
-import { UserContext } from '../../../contexts/UserContextProvider';
 import IconButton from '../../atoms/IconButton';
 import { useTheme } from '@react-navigation/native';
 
@@ -22,7 +21,6 @@ const FriendRequestForm = () => {
 
   const { colors } = useTheme();
   const firebaseContext = useContext(FirebaseContext)
-  const userContext = useContext(UserContext)
 
   const [showAddUser, setShowAddUser] = useState(false)
 
@@ -32,14 +30,14 @@ const FriendRequestForm = () => {
       if (snapshot) {
         console.log(snapshot)
         const res = await setDoc(doc(firebaseContext.fdb, 'users', data.userId, 'friend_requests', firebaseContext.auth.currentUser.uid), {
-          displayName: userContext.userData?.displayName,
-          photoURL: userContext.userData?.photoURL,
-          email: userContext.userData?.email
+          displayName: firebaseContext.userData?.displayName,
+          photoURL: firebaseContext.userData?.photoURL,
+          email: firebaseContext.userData?.email
         });
         await setDoc(doc(firebaseContext.fdb, 'users', firebaseContext.auth.currentUser.uid, 'own_requests',data.userId ), {
-          displayName: userContext.userData?.displayName,
-          photoURL: userContext.userData?.photoURL,
-          email: userContext.userData?.email
+          displayName: firebaseContext.userData?.displayName,
+          photoURL: firebaseContext.userData?.photoURL,
+          email: firebaseContext.userData?.email
         });
         console.log(res)
       }

@@ -9,8 +9,11 @@ import {
   FIREBASE_APP_ID,
   FIREBASE_MEASUREMENT_ID,
 } from '@env'
-import { getAuth } from 'firebase/auth';
+import { getAuth,signInWithCredential } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { GoogleAuthProvider } from "firebase/auth";
+import * as SecureStore from 'expo-secure-store';
+import { useEffect } from "react";
 
 export const FirebaseContext = createContext();
 
@@ -32,6 +35,9 @@ const FirebaseContextProvider = ({ children }) => {
     measurementId: FIREBASE_MEASUREMENT_ID
   };
 
+  const [userData,setUserData] = useState()
+  const [token,setToken] = useState()
+
   console.log(firebaseConfig)
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -41,16 +47,23 @@ const FirebaseContextProvider = ({ children }) => {
   const fdb = getFirestore() 
 
   const reloginWithValidCredential = async() =>{
-    console.log("loggedin")
-    signInWithCredential(auth, await SecureStore.getItemAsync('secure_credential'))
-    console.log("loggedin")
-  }
 
-  reloginWithValidCredential()
+    const id_token = await SecureStore.getItemAsync('id_token');
+    const credential = GoogleAuthProvider.credential(id_token);
+    const res = await signInWithCredential(auth, credential)
+    //console.log(res.user);
+    setToken(res.user.accessToken)
+    setUserData(res.user)
+
+  }
+  useEffect(()=>{
+    reloginWithValidCredential()
+  },[])
+
 
   
   return (
-    <FirebaseContext.Provider value={{app,auth,fdb}}>
+    <FirebaseContext.Provider value={{app,auth,fdb,userData,setUserData,token,setToken}}>
       {children}
     </FirebaseContext.Provider>
   )
