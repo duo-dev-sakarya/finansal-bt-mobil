@@ -19,7 +19,8 @@ export default function Login() {
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
     {
-      clientId: GOOGLE_CLIENT_ID,
+      expoClientId: GOOGLE_CLIENT_ID,
+      androidClientId: GOOGLE_ANDROID_CLIENT_ID,
     },
   );
 

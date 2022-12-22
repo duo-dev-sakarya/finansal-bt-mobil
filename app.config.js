@@ -1,12 +1,12 @@
 module.exports = {
-  name: "finansal-bt-mc-y",
-  slug: "finansal-bt-mc-y",
-  version: '1.0.0',
+  name: "ShopListie",
+  slug: "ShopListie",
+  version: '1.0.1',
   orientation: "portrait",
-  icon: "./assets/icon.png",
+  icon: "./assets/shopping-list.png",
   userInterfaceStyle: "light",
   splash: {
-    image: "./assets/splash.png",
+    image: "./assets/shopping-list.png",
     resizeMode: "contain",
     backgroundColor: "#ffffff"
   },
@@ -37,7 +37,7 @@ module.exports = {
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: "./assets/adaptive-icon.png",
+      foregroundImage: "./assets/shopping-list.png",
       backgroundColor: "#FFFFFF",
     },
     googleServicesFile: "./google-services.json",
