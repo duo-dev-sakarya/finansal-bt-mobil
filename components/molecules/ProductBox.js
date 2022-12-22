@@ -15,7 +15,6 @@ const ProductBox = ({ name, id, avgPrice, min, max }) => {
   const [amountMode, setAmountMode] = useState(false)
 
   const addToList= async()=>{
-    console.log(route)
     const res = await setDoc(doc(firebaseContext.fdb, 'groups', route.params.groupId, 'lists',route.params.listId,"contents",name), {
       name,
       avgPrice,

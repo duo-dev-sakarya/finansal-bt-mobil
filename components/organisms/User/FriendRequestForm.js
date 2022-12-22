@@ -28,7 +28,6 @@ const FriendRequestForm = () => {
     try {
       const snapshot = await getDoc(doc(firebaseContext.fdb, 'users', data.userId))
       if (snapshot) {
-        console.log(snapshot)
         const res = await setDoc(doc(firebaseContext.fdb, 'users', data.userId, 'friend_requests', firebaseContext.auth.currentUser.uid), {
           displayName: firebaseContext.userData?.displayName,
           photoURL: firebaseContext.userData?.photoURL,
@@ -39,7 +38,6 @@ const FriendRequestForm = () => {
           photoURL: firebaseContext.userData?.photoURL,
           email: firebaseContext.userData?.email
         });
-        console.log(res)
       }
 
 

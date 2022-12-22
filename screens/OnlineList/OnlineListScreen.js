@@ -23,7 +23,6 @@ const OnlineListScreen = ({ navigation }) => {
     const res = await getDocs(collection(firebaseContext.fdb, 'users', firebaseContext.auth.currentUser.uid, 'groups'))
     const arr = res.docs.map((d) => ({ value: d.id, label: d.data().name }))
     setItems(arr)
-    console.log(arr)
   }
 
   useEffect(() => {

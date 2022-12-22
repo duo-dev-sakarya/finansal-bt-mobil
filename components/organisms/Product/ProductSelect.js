@@ -21,7 +21,6 @@ const ProductSelect = ({ groupId }) => {
         ,where('name', '<=', queryText + '\uf8ff')))
       const arr = res.docs.map((d) => ({ id: d.id, ...d.data() }))
       setData(arr)
-      console.log(arr)
     }
     catch (err) {
       console.log(err)

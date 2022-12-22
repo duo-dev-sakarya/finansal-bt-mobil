@@ -60,7 +60,6 @@ const ProductAddUpdate = ({ }) => {
   }
 
   const addToList= async(name,avgPrice,min,max)=>{
-    console.log(route)
     const res = await setDoc(doc(firebaseContext.fdb, 'groups', route.params.groupId, 'lists',route.params.listId,"contents",name), {
       name,
       avgPrice,

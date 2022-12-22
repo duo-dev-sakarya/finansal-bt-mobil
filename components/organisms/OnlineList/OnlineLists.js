@@ -22,7 +22,6 @@ const OnlineLists = ({ groupId }) => {
   const getLists = async (groupId) => {
     try {
       setLoading(true)
-      console.log(groupId, firebaseContext.auth.currentUser.uid)
       const res = await getDocs(collection(firebaseContext.fdb, 'groups', groupId, "lists"))
       const arr = res.docs.map((d) => ({ id: d.id, ...d.data() }))
       setData(arr)

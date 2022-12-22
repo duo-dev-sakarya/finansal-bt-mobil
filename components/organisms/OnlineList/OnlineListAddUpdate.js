@@ -27,7 +27,6 @@ const OnlineListAddUpdate = () => {
 
   const submit = async (data) => {
     const groupId = route.params.groupId
-    console.log(groupId, data)
     if (groupId !== null) {
       const res = await addDoc(collection(firebaseContext.fdb, 'groups', groupId, 'lists'), {
         name: data.name

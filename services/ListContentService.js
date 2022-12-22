@@ -9,7 +9,7 @@ const useListContentService = () => {
     return new Promise(async (resolve, reject) =>
       await db.transaction(tx => {
         tx.executeSql(`INSERT INTO list_contents (name, created_at, updated_at, is_active, list_id, is_checked) values (?, ?, ?, ?, ?, ?)`,
-          [name, currentDate, currentDate, 1, listId, 0],
+          [name, currentDate.toISOString(), currentDate.toISOString(), 1, listId, 0],
           (txObj, resultSet) => {
             resolve(resultSet.insertId)
             setLastTransaction(new Date())
@@ -24,7 +24,7 @@ const useListContentService = () => {
     return new Promise(async (resolve, reject) =>
       await db.transaction(tx => {
         tx.executeSql(`UPDATE list_contents SET is_checked = ?, updated_at = ? WHERE id = ?`,
-          [check,currentDate, listContentId],
+          [check,currentDate.toISOString(), listContentId],
           (txObj, resultSet) => {
             resolve(resultSet.insertId)
             setLastTransaction(new Date())

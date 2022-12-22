@@ -19,7 +19,6 @@ const ListContentList = ({}) => {
 
   const loadLists = async () => {
     setData(await fetchListContent(route.params.listId))
-    console.log(data)
   }
 
   const getItem = (data, index) => {

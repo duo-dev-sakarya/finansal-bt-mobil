@@ -34,7 +34,6 @@ const OnlineListContentAddUpdate = ({}) => {
   const [showAddUser, setShowAddUser] = useState(false)
 
   const submit = async (data) => {
-    console.log(groupId,data)
     if(groupId!==null){
       const res = await addDoc(collection(firebaseContext.fdb, 'groups', groupId, 'lists',routes.params.listId,"content"), {
         name:data.name

@@ -19,7 +19,6 @@ const OnlineListContents = ({ }) => {
   const getListContents = async ({ listId, groupId }) => {
     try {
       setLoading(true)
-      console.log(groupId, listId, firebaseContext.auth.currentUser.uid)
       const res = await getDocs(collection(firebaseContext.fdb, 'groups', groupId, "lists", listId, "contents"))
       const arr = res.docs.map((d) => ({ id: d.id, ...d.data() }))
       setData(arr)
@@ -54,6 +53,7 @@ const OnlineListContents = ({ }) => {
         avgPrice={item.avgPrice}
         min={item.min}
         max={item.max}
+        checked={item.checked}
         refresh={getListContents}
       />
       }

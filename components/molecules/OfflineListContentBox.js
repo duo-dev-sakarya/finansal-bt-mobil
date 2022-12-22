@@ -30,7 +30,6 @@ const OfflineListContentViewBox = ({ name, id, listId, groupId, refresh, min = {
 
   const checkUncheckListContent = async () => {
     const checkReqVal = localChecked ? 0 : 1
-    console.log("checkReqVal", checkReqVal, id)
     await checkListContent(id, checkReqVal)
     setLocalChecked(checkReqVal)
   }
@@ -58,21 +57,6 @@ const OfflineListContentViewBox = ({ name, id, listId, groupId, refresh, min = {
         </TouchableOpacity>
       </View>
       <View>
-        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-          <Text style={{ fontSize: 22, }}>{avgPrice} $</Text>
-        </View>
-        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
-          <Text style={{ fontSize: 10 }}></Text>
-          <Text style={{ fontSize: 8 }}>{min.vendor} </Text>
-          <Text style={{ fontSize: 10 }}>{min.price} $</Text>
-
-          <Text style={{ fontSize: 10 }}>/</Text>
-          <Text style={{ fontSize: 8 }}>{max.vendor} </Text>
-          <Text style={{ fontSize: 10 }}>{max.price} $</Text>
-
-        </View>
-        <View style={{ flexDirection: "row", }}>
-        </View>
       </View>
       <View style={{ justifyContent: "space-around" }}>
         <TouchableOpacity onPress={deleteListContentFunc}>

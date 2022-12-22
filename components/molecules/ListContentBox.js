@@ -24,14 +24,6 @@ const ListContentViewBox = ({ name, id, listId, groupId, refresh, min, max, avgP
       deleteIconColor :"red",
       textColor:"gray"
     })
-  const openListContent = () => {
-    if (id) {
-      navigation.navigate("OnlineListContentScreen", {
-        groupId: groupId,
-        listId: id
-      })
-    }
-  }
 
   const checkUncheckListContent = async () => {
     const checkReqVal = localChecked?false:true

@@ -7,8 +7,8 @@ const useListService = () => {
   const addList = async (name) => {
     const currentDate = new Date()
     return new Promise(async (resolve, reject) =>
-      await db.transaction(tx => {
-        tx.executeSql('INSERT INTO lists (name, created_at, updated_at, is_active) values (?, ?, ?, ?)', [name, currentDate, currentDate, 1],
+      await db.transaction(async tx => {
+        await tx.executeSql('INSERT INTO lists (name, created_at, updated_at, is_active) values (?, ?, ?, ?)', [name, currentDate.toISOString(), currentDate.toISOString(), 1],
           (txObj, resultSet) => {
             resolve(resultSet.insertId)
             setLastTransaction(new Date())

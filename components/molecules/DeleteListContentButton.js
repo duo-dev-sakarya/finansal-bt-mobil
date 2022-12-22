@@ -9,7 +9,6 @@ const DeleteListContentButton = ({listId,groupId,contentId,refresh}) => {
   const firebaseContext = useContext(FirebaseContext)
 
   const deleteListContentRequest = async() => {
-    console.log("group: "+groupId,"list: "+listId,"content "+contentId)
     await deleteDoc(doc(firebaseContext.fdb, 'groups', groupId, 'lists',listId,'contents',contentId))
     refresh()
   }

@@ -38,7 +38,6 @@ const FirebaseContextProvider = ({ children }) => {
   const [userData,setUserData] = useState()
   const [token,setToken] = useState()
 
-  console.log(firebaseConfig)
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 

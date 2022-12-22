@@ -9,7 +9,6 @@ const RemoveFriendshipButton = ({userId,refresh}) => {
   const firebaseContext = useContext(FirebaseContext)
 
   const removeFriendshipRequest = async() => {
-    console.log(userId,firebaseContext.auth.currentUser.uid)
     await deleteDoc(doc(firebaseContext.fdb, 'users', userId, 'friends',firebaseContext.auth.currentUser.uid))
     await deleteDoc(doc(firebaseContext.fdb, 'users', firebaseContext.auth.currentUser.uid, 'friends',userId))
     refresh()

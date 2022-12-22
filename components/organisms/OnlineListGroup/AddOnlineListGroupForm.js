@@ -44,8 +44,6 @@ const AddOnlineListGroupForm = () => {
 
   const submit = async (data) => {
     try {
-      console.log(data.groupName, values)
-
       values.push(firebaseContext.auth.currentUser.uid)
 
       const batch = writeBatch(firebaseContext.fdb);
@@ -54,14 +52,12 @@ const AddOnlineListGroupForm = () => {
         users: values
       });
       values.forEach((val) => {
-        console.log(val, firebaseContext.auth.currentUser.uid + data.groupName)
         batch.set(doc(firebaseContext.fdb, 'users', val, "groups", firebaseContext.auth.currentUser.uid + data.groupName), {
           name: data.groupName,
           users: values
         });
       })
       batch.commit()
-      console.log(res)
       navigation.goBack()
 
 

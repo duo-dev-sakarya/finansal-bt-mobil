@@ -8,7 +8,7 @@ import { View } from 'react-native';
 import axios from 'axios'
 import CustomButton from '../atoms/CustomButton'
 import { FirebaseContext } from "../../contexts/FirebaseContextProvider"
-import { GOOGLE_CLIENT_ID } from '@env'
+import { GOOGLE_CLIENT_ID, GOOGLE_ANDROID_CLIENT_ID } from '@env'
 import * as SecureStore from 'expo-secure-store';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -27,10 +27,8 @@ export default function Login() {
     try {
       if (response?.type === 'success') {
         const { id_token } = response.params;
-        console.log(response)
 
         singInFirebaseWithCredentials(firebaseContext.auth, id_token)
-
 
         //requestExample()
       }
@@ -42,11 +40,9 @@ export default function Login() {
 
   const singInFirebaseWithCredentials = async (auth, id_token) => {
     try{
-      console.log('id_token',id_token)
       await SecureStore.setItemAsync('id_token',id_token);
       const credential = GoogleAuthProvider.credential(id_token);
       const res = await signInWithCredential(auth, credential)
-      console.log(res.user);
       firebaseContext.setToken(res.user.accessToken)
       firebaseContext.setUserData(res.user)
     }catch(err){
@@ -58,7 +54,6 @@ export default function Login() {
   const requestExample = async () => {
     try {
       const res = await axios.get(`https://oauth2.googleapis.com/tokeninfo?id_token=${response.params.id_token}`)
-      console.log(res)
     } catch (err) {
       console.log(err)
     }
@@ -70,7 +65,7 @@ export default function Login() {
       disabled={!request}
       title="LOGIN WITH GOOGLE ACCOUNT"
       onPress={() => {
-        promptAsync();
+        promptAsync({useProxy: false, showInRecents: true});
       }}
     />
   );
