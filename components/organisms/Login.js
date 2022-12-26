@@ -66,6 +66,7 @@ export default function Login() {
       disabled={!request}
       title="LOGIN WITH GOOGLE ACCOUNT"
       onPress={() => {
+        //promptAsync() // For development
         promptAsync({useProxy: false, showInRecents: true});
       }}
     />

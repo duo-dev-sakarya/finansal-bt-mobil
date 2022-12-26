@@ -14,9 +14,7 @@ const FriendRequestForm = () => {
 
   const {
     handleSubmit,
-    setValue,
-    register,
-    formState: { errors },
+    control
   } = useForm();
 
   const { colors } = useTheme();
@@ -55,15 +53,12 @@ const FriendRequestForm = () => {
         <View style={{ backgroundColor: colors.card, borderRadius: 12, marginVertical: 6 }}>
           <SafeAreaView><CustomTextInput
             label={"Add Friends By Id"}
-            {...register("userId", {
-              required: true, pattern:
-              {
-
-                message: "invalid userId address"
-              }
-            })}
-            onChangeText={text => setValue('userId', text, true)}
-            errorMessage={errors.userId?.message}
+            name="userId"
+            rules={{ 
+              required: "Required Field", 
+              maxLength: { value: 28, message: "User id must be 28 charachter" } ,
+              minLength: { value: 28, message: "User id must be 28 charachter" } }}
+            control={control}
           />
             <CustomButton title="Send Friend Request" onPress={handleSubmit(submit)} />
           </SafeAreaView>

@@ -16,9 +16,7 @@ const AddOnlineListGroupForm = () => {
 
   const {
     handleSubmit,
-    setValue,
-    register,
-    formState: { errors },
+    control
   } = useForm();
 
   const { colors } = useTheme();
@@ -77,11 +75,9 @@ const AddOnlineListGroupForm = () => {
 
         <CustomTextInput
           label={"List Group Name"}
-          {...register("groupName", {
-            required: true
-          })}
-          onChangeText={text => setValue('groupName', text, true)}
-          errorMessage={errors.groupName?.message}
+          name="groupName"
+          rules={{ required: "Required Field", maxLength: { value: 20, message: "Max 20" } }}
+          control={control}
         />
         <DropDownPicker
           multiple={true}

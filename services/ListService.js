@@ -32,9 +32,25 @@ const useListService = () => {
     )
   }
 
+  const deleteList = async (listId) => {
+    const currentDate = new Date()
+    return new Promise(async (resolve, reject) =>
+      await db.transaction(tx => {
+        tx.executeSql(`DELETE FROM lists WHERE id = ?`,
+          [listId],
+          (txObj, resultSet) => {
+            resolve(resultSet.insertId)
+            setLastTransaction(new Date())
+          },
+          (txObj, error) => { console.log('Error', error), reject() })
+      })
+    )
+  }
+
   return {
     addList,
     fetchList,
+    deleteList,
     lastTransaction
   }
 }

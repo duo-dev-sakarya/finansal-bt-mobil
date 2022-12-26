@@ -1,4 +1,4 @@
-import { VirtualizedList } from "react-native"
+import { VirtualizedList,RefreshControl } from "react-native"
 import { useEffect, useState, useContext } from "react"
 import ProfileViewBox from "../../molecules/ProfileViewBox"
 import { doc, setDoc, getDocs, collection, } from 'firebase/firestore';
@@ -8,14 +8,18 @@ const FriendRequestList = () => {
 
   const firebaseContext = useContext(FirebaseContext)
   const [data, setData] = useState([])
+  const [loading,setLoading] = useState(false)
+
   useEffect(() => {
     getFriendRequestsReq()
   }, [])
 
   const getFriendRequestsReq = async () => {
+    setLoading(true)
     const res = await getDocs(collection(firebaseContext.fdb, 'users', firebaseContext.auth.currentUser.uid, 'friend_requests'))
     const arr = res.docs.map((d) => ({ id: d.id, ...d.data() }))
     setData(arr)
+    setLoading(false)
   }
   const getItem = (data, index) => {
     return {
@@ -27,6 +31,12 @@ const FriendRequestList = () => {
     <VirtualizedList
       data={data}
       initialNumToRender={9}
+      refreshControl={
+        <RefreshControl
+          onRefresh={getFriendRequestsReq}
+          refreshing={loading&&data.length>0}
+        />
+      }
       renderItem={({ item }) => <ProfileViewBox
         displayName={item.displayName}
         ppURI={item.photoURL}

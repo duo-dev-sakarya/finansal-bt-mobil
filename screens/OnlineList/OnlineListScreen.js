@@ -50,7 +50,7 @@ const OnlineListScreen = ({ navigation }) => {
         </View>
       </View>
 
-      <OnlineLists groupId={selectedValue} />
+      <OnlineLists groupId={selectedValue} getGroups={getUserGroups}/>
 
       {selectedValue && <FixedAddButton onPress={() => navigation.navigate("OnlineListAddUpdateScreen", { groupId: selectedValue })} />}
 

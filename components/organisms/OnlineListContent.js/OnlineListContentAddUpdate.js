@@ -12,20 +12,13 @@ import { useTheme } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker'
 import { useRoute } from '@react-navigation/native';
 
-const valSchema = yup.object().shape({
-  name: yup.string().min(6).max(24).required(),
-})
 
 const OnlineListContentAddUpdate = ({}) => {
 
   const {
     handleSubmit,
-    setValue,
-    register,
-    formState: { errors },
-  } = useForm({
-    validationSchema: valSchema
-  });
+    control
+  } = useForm({});
 
   const routes = useRoute()
   const { colors } = useTheme();
@@ -51,11 +44,9 @@ const OnlineListContentAddUpdate = ({}) => {
           <SafeAreaView>
             <CustomTextInput
               label={"List Content Name"}
-              {...register("name", {
-                required: true
-              })}
-              onChangeText={text => setValue('name', text, true)}
-              errorMessage={errors.name?.message}
+              name="name"
+              rules={{ required: "Required Field", maxLength: { value: 20, message: "Max 20" } }}
+              control={control}
             />
             <CustomButton title="Add Content" onPress={handleSubmit(submit)} />
           </SafeAreaView>

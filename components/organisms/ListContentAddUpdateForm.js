@@ -16,9 +16,7 @@ const ListContentAddUpdateForm = () => {
   const { addListContent } = useListContentService()
   const {
     handleSubmit,
-    setValue,
-    register,
-    formState: { errors },
+    control
   } = useForm();
 
   const submit = async (data) => {
@@ -30,9 +28,9 @@ const ListContentAddUpdateForm = () => {
     <SafeAreaView>
       <CustomTextInput
         label={"List Content Name"}
-        {...register("name", { required: true, maxLength: 30 })}
-        onChangeText={text => setValue('name', text, true)}
-        errorMessage={errors.title?.message}
+        name="name"
+        rules= {{ required: "Required Field", maxLength: {value:20, message:"Max 20"}}}
+        control={control}
       />
       <CustomButton title="Add List Content" onPress={handleSubmit(submit)} />
     </SafeAreaView>

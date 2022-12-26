@@ -7,16 +7,14 @@ import { useContext } from 'react';
 import { FirebaseContext } from '../../../contexts/FirebaseContextProvider';
 import CustomButton from '../../atoms/CustomButton';
 import { doc, setDoc, addDoc, collection, writeBatch, getDoc } from 'firebase/firestore';
-import { useTheme ,useRoute, useNavigation} from '@react-navigation/native';
-import {  } from '@react-navigation/native';
+import { useTheme, useRoute, useNavigation } from '@react-navigation/native';
+import { } from '@react-navigation/native';
 
 const OnlineListAddUpdate = () => {
 
   const {
     handleSubmit,
-    setValue,
-    register,
-    formState: { errors },
+    control
   } = useForm();
 
   const route = useRoute()
@@ -46,11 +44,9 @@ const OnlineListAddUpdate = () => {
       <KeyboardAvoidingView >
         <CustomTextInput
           label={"List Name"}
-          {...register("name", {
-            required: true
-          })}
-          onChangeText={text => setValue('name', text, true)}
-          errorMessage={errors.name?.message}
+          name="name"
+          rules={{ required: "Required Field", maxLength: { value: 20, message: "Max 20" } }}
+          control={control}
         />
         <CustomButton title="Add List" onPress={handleSubmit(submit)} />
       </KeyboardAvoidingView>

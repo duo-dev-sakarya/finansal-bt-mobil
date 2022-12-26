@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Text, SafeAreaView, Button, View, KeyboardAvoidingView,ScrollView } from 'react-native'
+import { Text, SafeAreaView, Button, View, KeyboardAvoidingView, ScrollView } from 'react-native'
 import CustomTextInput from '../../../components/atoms/CustomTextInput'
 import { useForm } from "react-hook-form";
 import { getAuth } from 'firebase/auth';
@@ -13,9 +13,7 @@ const ProductAddUpdate = ({ }) => {
 
   const {
     handleSubmit,
-    setValue,
-    register,
-    formState: { errors },
+    control
   } = useForm();
 
   const route = useRoute()
@@ -27,24 +25,24 @@ const ProductAddUpdate = ({ }) => {
 
     const min = {
       price: data.price,
-      vendor:data.vendorName,
+      vendor: data.vendorName,
     }
 
     const max = {
       price: data.price,
-      vendor:data.vendorName,
+      vendor: data.vendorName,
     }
 
     await setDoc(doc(firebaseContext.fdb, 'products', data.productName), {
       name: data.productName,
       avgPrice: data.price,
-      min:{
+      min: {
         price: data.price,
-        vendor:data.vendorName,
+        vendor: data.vendorName,
       },
-      max:{
+      max: {
         price: data.price,
-        vendor:data.vendorName,
+        vendor: data.vendorName,
       },
       vendorCount: 1,
       vendors: [{
@@ -56,11 +54,11 @@ const ProductAddUpdate = ({ }) => {
       }]
 
     });
-    addToList(data.productName,data.price,min,max)
+    addToList(data.productName, data.price, min, max)
   }
 
-  const addToList= async(name,avgPrice,min,max)=>{
-    const res = await setDoc(doc(firebaseContext.fdb, 'groups', route.params.groupId, 'lists',route.params.listId,"contents",name), {
+  const addToList = async (name, avgPrice, min, max) => {
+    const res = await setDoc(doc(firebaseContext.fdb, 'groups', route.params.groupId, 'lists', route.params.listId, "contents", name), {
       name,
       avgPrice,
       min,
@@ -73,33 +71,32 @@ const ProductAddUpdate = ({ }) => {
 
   return (
     <KeyboardAvoidingView>
-    <ScrollView style={{ backgroundColor: colors.card, borderRadius: 12, marginVertical: 6 }}>
+      <ScrollView style={{ backgroundColor: colors.card, borderRadius: 12, marginVertical: 6 }}>
 
         <CustomTextInput
           label={"Product Name"}
-          {...register("productName", {
-            required: true
-          })}
-          onChangeText={text => setValue('productName', text, true)}
-          errorMessage={errors.productName?.message}
+          name="productName"
+          rules={{
+            required: "Required Field",
+            maxLength: { value: 30, message: "Max 30" },
+            minLength: { value: 3, message: "Products must be min 3 charachter" }
+          }}
+          control={control}
         />
         <CustomTextInput
           label={"Vendor Name"}
-          {...register("vendorName", {
-          })}
-          onChangeText={text => setValue('vendorName', text, true)}
-          errorMessage={errors.vendorName?.message}
+          name="vendorName"
+          rules={{ required: "Required Field", maxLength: { value: 20, message: "Max 20" } }}
+          control={control}
         />
         <CustomTextInput
           label={"Price"}
-          {...register("price", {
-            valueAsNumber: true,
-          })}
-          onChangeText={text => setValue('price', text, true)}
-          errorMessage={errors.price?.message}
+          name="price"
+          rules={{ required: "Required Field", maxLength: { value: 20, message: "Max 20" }, valueAsNumber: true }}
+          control={control}
         />
         <CustomButton title="Add product" onPress={handleSubmit(submit)} />
-    </ScrollView>
+      </ScrollView>
     </KeyboardAvoidingView>
   )
 }

@@ -11,9 +11,7 @@ const ListAddUpdateForm = ({ navigation }) => {
   const { addList } = useListService()
   const {
     handleSubmit,
-    setValue,
-    register,
-    formState: { errors },
+    control,
   } = useForm();
 
   const submit = async (data) => {
@@ -27,9 +25,9 @@ const ListAddUpdateForm = ({ navigation }) => {
       margin: 10}}>
       <CustomTextInput
         label={"List Name"}
-        {...register("name", { required: true, maxLength: 30 })}
-        onChangeText={text => setValue('name', text, true)}
-        errorMessage={errors.title?.message}
+        name="name"
+        rules= {{ required: "Required Field", maxLength: {value:20, message:"Max 20"}}}
+        control={control}
       />
       <CustomButton title="Add List" onPress={handleSubmit(submit)} />
     </SafeAreaView>

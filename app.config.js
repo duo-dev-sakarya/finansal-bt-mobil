@@ -1,7 +1,7 @@
 module.exports = {
-  name: "ShopListie",
-  slug: "ShopListie",
-  version: '1.0.1',
+  name: "finansal-bt-mc-y",
+  slug: "finansal-bt-mc-y",
+  version: '1.0.2',
   orientation: "portrait",
   icon: "./assets/shopping-list.png",
   userInterfaceStyle: "light",
@@ -41,9 +41,22 @@ module.exports = {
       backgroundColor: "#FFFFFF",
     },
     googleServicesFile: "./google-services.json",
-    package: "com.deonsky.finansalbtmcy"
+    package: "com.deonsky.finansalbtmcy",
+    versionCode: 2
   },
   packagerOpts: {
     sourceExts: ["cjs"]
-  }
+  },
+  plugins: [
+    [
+      "expo-build-properties",
+      {
+        android: {
+          enableProguardInReleaseBuilds: true,
+          extraProguardRules: "-keep public class com.horcrux.svg.** {*;}",
+          allowBackup: false
+        }
+      }
+    ]
+  ],
 };

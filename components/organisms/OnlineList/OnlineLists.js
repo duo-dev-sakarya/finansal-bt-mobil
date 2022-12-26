@@ -7,7 +7,7 @@ import ListViewbox from "../../molecules/ListViewbox";
 import { RefreshControl } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
-const OnlineLists = ({ groupId }) => {
+const OnlineLists = ({ groupId,getGroups }) => {
 
   const focus = useIsFocused()
   const firebaseContext = useContext(FirebaseContext)
@@ -44,7 +44,7 @@ const OnlineLists = ({ groupId }) => {
       initialNumToRender={9}
       refreshControl={
         <RefreshControl
-          onRefresh={() => getLists(groupId)}
+          onRefresh={() => {getLists(groupId),getGroups()}}
           refreshing={loading&&data.length>0}
         />
       }
