@@ -1,7 +1,8 @@
 module.exports = {
   name: "finansal-bt-mc-y",
   slug: "finansal-bt-mc-y",
-  version: '1.0.2',
+  scheme:"com.deonsky.finansalbtmcy",
+  version: '1.0.3',
   orientation: "portrait",
   icon: "./assets/shopping-list.png",
   userInterfaceStyle: "light",
@@ -42,7 +43,7 @@ module.exports = {
     },
     googleServicesFile: "./google-services.json",
     package: "com.deonsky.finansalbtmcy",
-    versionCode: 2
+    versionCode: 3,
   },
   packagerOpts: {
     sourceExts: ["cjs"]

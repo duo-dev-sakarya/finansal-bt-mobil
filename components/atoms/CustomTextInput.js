@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 import { useTheme } from "@react-navigation/native";
 import { Controller } from "react-hook-form";
 
-const CustomTextInput = ({ label, control, name, rules = {}, placeholder }) => {
+const CustomTextInput = ({ label, control, name, rules = {},isNumeric, placeholder }) => {
   const { colors } = useTheme();
   const styles = makeStyles(colors)
 
@@ -22,6 +22,7 @@ const CustomTextInput = ({ label, control, name, rules = {}, placeholder }) => {
               onBlur={onBlur}
               style={styles.input}
               placeholder="Type Here "
+              keyboardType={isNumeric&&'numeric'}
               />
               {console.log(error)}
             {error && <Text style={styles.errorText}>{error.message}</Text>}

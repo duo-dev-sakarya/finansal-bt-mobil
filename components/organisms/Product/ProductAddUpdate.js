@@ -92,7 +92,8 @@ const ProductAddUpdate = ({ }) => {
         <CustomTextInput
           label={"Price"}
           name="price"
-          rules={{ required: "Required Field", maxLength: { value: 20, message: "Max 20" }, valueAsNumber: true }}
+          isNumeric
+          rules={{ required: "Required Field", maxLength: { value: 20, message: "Max 20" } }}
           control={control}
         />
         <CustomButton title="Add product" onPress={handleSubmit(submit)} />

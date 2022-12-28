@@ -1,4 +1,9 @@
 {
+  "resolutions": {
+    "@expo/config-plugins": "~5.0.0",
+    "@expo/prebuild-config": "~5.0.0",
+    "expo-modules-autolinking": "0.10.1"
+  },
   "name": "finansal-bt-mc-y",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
@@ -20,13 +25,11 @@
     "axios": "^1.2.0",
     "expo": "^46.0.0",
     "expo-asset": "~8.6.3",
-    "expo-auth-session": "~3.7.4",
+    "expo-auth-session": "~3.7.2",
     "expo-build-properties": "~0.3.0",
     "expo-clipboard": "~3.1.0",
     "expo-file-system": "~14.1.0",
-    "expo-google-app-auth": "~8.3.0",
-    "expo-google-sign-in": "^11.0.0",
-    "expo-random": "~12.3.0",
+    "expo-random": "~13.0.0",
     "expo-secure-store": "~11.3.0",
     "expo-sqlite": "~10.3.0",
     "expo-status-bar": "~1.4.0",

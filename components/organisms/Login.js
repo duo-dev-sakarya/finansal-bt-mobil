@@ -1,17 +1,15 @@
 import * as React from 'react';
-import * as WebBrowser from 'expo-web-browser';
-import { ResponseType } from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
-import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import axios from 'axios'
 import CustomButton from '../atoms/CustomButton'
 import { FirebaseContext } from "../../contexts/FirebaseContextProvider"
 import { GOOGLE_CLIENT_ID, GOOGLE_ANDROID_CLIENT_ID } from '@env'
 import * as SecureStore from 'expo-secure-store';
+import { Text } from 'react-native';
+import { useState } from 'react';
 
-WebBrowser.maybeCompleteAuthSession();
 
 export default function Login() {
 
@@ -40,14 +38,14 @@ export default function Login() {
   }, [response]);
 
   const singInFirebaseWithCredentials = async (auth, id_token) => {
-    try{
-      await SecureStore.setItemAsync('id_token',id_token);
+    try {
+      await SecureStore.setItemAsync('id_token', id_token);
       const credential = GoogleAuthProvider.credential(id_token);
       const res = await signInWithCredential(auth, credential)
       firebaseContext.setToken(res.user.accessToken)
       firebaseContext.setUserData(res.user)
-    }catch(err){
-      console.log(err,auth, credential);
+    } catch (err) {
+      console.log(err, auth, credential);
     }
 
   }
@@ -67,7 +65,8 @@ export default function Login() {
       title="LOGIN WITH GOOGLE ACCOUNT"
       onPress={() => {
         //promptAsync() // For development
-        promptAsync({useProxy: false, showInRecents: true});
+        //promptAsync({useProxy: false, showInRecents: true});
+        promptAsync({ useProxy: false, showInRecents: true });
       }}
     />
   );
